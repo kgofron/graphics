@@ -37,5 +37,5 @@ def hkl2dfhkl(hkl_path):
         'd': float,
         'intensity': float
     })
-    print(f'dfhkl head: \n{df.head()}')
+    #print(f'dfhkl head: \n{df.head()}')
     return df
