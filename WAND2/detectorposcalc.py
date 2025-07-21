@@ -40,27 +40,21 @@ def cylinder_intersection(ray_origin, ray_dir, R, cyl_center=(0,0)):
     t = max(t_candidates)
     return ray_origin + t * ray_dir
 
-def real2det(s_omega, s_chi, s_phi, s_theta, R, cyl_center, ray_origin):
+def real2det(gamma_axis, delta_axis, s_gamma, s_delta, R, cyl_center, ray_origin):
     # Rotation axes
-    omega_axis = (0, 0, 1)
-    chi_axis   = (1, 0, 0)
-    phi_axis   = (0, 1, 0)
-    theta_axis = (0, 0, 1)
+    #gamma_axis   = (0, 0, 1)
+    #delta_axis = (0, -1, 0)
 
     ray_dir_0 = np.array([1.0, 0.0, 0.0])
     x_c, y_c = cyl_center
 
-    omega = np.deg2rad(s_omega)
-    chi   = np.deg2rad(s_chi)
-    phi   = np.deg2rad(s_phi)
-    theta = np.deg2rad(s_theta)
+    gamma = np.deg2rad(s_gamma)
+    delta = np.deg2rad(s_delta)
 
-    R_omega = rotation_matrix(omega_axis, omega)
-    R_chi   = rotation_matrix(chi_axis, chi)
-    R_phi   = rotation_matrix(phi_axis, phi)
-    R_theta = rotation_matrix(theta_axis, theta)
+    R_gamma = rotation_matrix(gamma_axis, gamma)
+    R_delta = rotation_matrix(delta_axis, delta)
 
-    total_R = R_omega @ R_chi @ R_phi @ R_theta
+    total_R = R_delta @ R_gamma
     ray_dir_rotated = total_R @ ray_dir_0
     ray_dir_rotated /= np.linalg.norm(ray_dir_rotated)
 

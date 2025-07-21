@@ -1,3 +1,5 @@
+#TODO Requires filter for when Bragg condition is met
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.ndimage import gaussian_filter
@@ -18,9 +20,12 @@ angle_rad = np.deg2rad(angle_deg)
 zmax = R * np.tan(angle_rad)
 zmin = -zmax
 
+gamma_axis = [0,0,1]
+delta_axis = [0,-1,0]
+
 lst = intensities2detint(
     cif_path, hkl_path, wavelength, min_intensity,
-    R, cyl_center, ray_origin, zmin, zmax
+    R, cyl_center, ray_origin, zmin, zmax, gamma_axis, delta_axis
 )
 print(lst)
 
