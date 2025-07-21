@@ -21,7 +21,7 @@ def dfhkl2dfhklaxes(df, min_intensity, factory, geometry, detector, sample, user
         if inten > min_intensity:
             try:
                 solutions = engine_hkl.pseudo_axis_values_set([h, k, l], user)
-                n_solutions = solutions.get_length()
+                n_solutions = solutions.n_items
                 for i in range(n_solutions):
                     item = solutions.get(i)
                     read = item.geometry_get().axis_values_get(user)
