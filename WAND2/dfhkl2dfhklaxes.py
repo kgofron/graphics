@@ -1,7 +1,12 @@
 import numpy as np
 import pandas as pd
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def dfhkl2dfhklaxes(df, min_intensity, factory, geometry, detector, sample, user):
+    logger.info("Starting dfhkl2dfhklaxes with %d reflections", len(df))
     rows = []
     engines = factory.create_new_engine_list()
     engines.init(geometry, detector, sample)
@@ -31,6 +36,7 @@ def dfhkl2dfhklaxes(df, min_intensity, factory, geometry, detector, sample, user
                             'tth': read[3]
                         })
             except Exception as e:
-                print(e)
+                logger.exception(f"Exception for hkl=({h},{k},{l}): {e}")
     new_df = pd.DataFrame(rows, columns=['h', 'k', 'l', 'omega', 'chi', 'phi', 'tth', 'd', 'intensity'])
+    logger.info("Completed dfhkl2dfhklaxes. Output DataFrame has %d rows", len(new_df))
     return new_df
